@@ -146,7 +146,7 @@ function renderScreen(screenString) {
 // These functions handle events (submit, click, etc)
 // handle start button
 function handleStartButton() {
-  $("main").on('click', '.js-startButton', event => {
+  $("main").on('submit', '.js-startButton', event => {
 
     console.log("Start Button clicked");
     event.preventDefault();
@@ -160,7 +160,7 @@ function handleStartButton() {
 
 // handle start button
 function handleRestartButton() {
-  $("main").on('click', '.js-restartButton', event => {
+  $("main").on('submit', '.js-restartButton', event => {
 
     console.log("Restart Button clicked");
     event.preventDefault();
