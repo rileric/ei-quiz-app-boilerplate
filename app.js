@@ -213,4 +213,8 @@ function handleSubmitButton() {
     handleAnswers(QUIZ, userAnswer); // returns True or False
   } );
 }
+
 // callback function to handle all screens / quiz
+$(function() {
+  renderScreen(generateStartString() );
+});
