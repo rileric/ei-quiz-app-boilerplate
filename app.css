@@ -6,3 +6,40 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+html {
+  box-sizing: border-box;
+  width: 100%;
+  background: black;
+  color: white;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+main {
+  border: solid white;
+  background-color: gainsboro;
+  color: black;
+}
+
+div {
+  border: solid black;
+}
+
+form input[type="radio"] + label {
+  display: inline;
+  font-size: 16px;
+}
+
+.welcome {
+  font-size: 48px;
+}
+
+/*for desktops and wider screens */
+@media all and (min-width: 800px) {
+
+  .welcome {
+    font-size: 52px;
+  }
+}
