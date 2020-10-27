@@ -1,46 +1,42 @@
 /* jshint esversion:6 */
 
-let quizQuestions = [
+var quizQuestions = [
   {question: "How many declensions does Latin have?",
    answer_a: " 1",
    answer_b: " 3",
    answer_c: " 5",
    answer_d: " 7",
-   correct:  "option_c"},
+   correct:  "option-c"},
   {question: "How many verb conjugations does Latin have?",
    answer_a: " 2",
    answer_b: " 4",
    answer_c: " 5",
    answer_d: " 6",
-   correct:  "option_b"},
+   correct:  "option-b"},
   {question: "How many verbs are in the phrase: Veni, vidi, vici?",
    answer_a: " 0",
    answer_b: " 1",
    answer_c: " 2",
    answer_d: " 3",
-   correct:  "option_d"},
+   correct:  "option-d"},
   {question: "What is the infinitive form of 'to be'?",
    answer_a: " sum",
    answer_b: " esse",
    answer_c: " est",
    answer_d: " sunt",
-   correct:  "option_b"},
+   correct:  "option-b"},
   {question: "How much is 'viginti'?",
    answer_a: " 20",
    answer_b: " 25",
    answer_c: " 5",
    answer_d: " 50",
-   correct:  "option_a"}
+   correct:  "option-a"}
 ];
 
-const QUIZ = {
-  questions: quizQuestions, // point to array above
+let QUIZ = {
   quizstarted: false,
-  quizIndex:0,
-  totalQuestions: quizQuestions.length, // dynamic!
+  quizIndex: 0,
   score: 0
-
-   // matches the radio button values
 };
 
 /**
@@ -66,12 +62,12 @@ const QUIZ = {
       <p>Welcome to the Latin Quiz!</p>
     </div>
     <form>
-      <button type="submit" class="js-startButton">Start Quiz</button>
+      <button class="js-startButton">Start Quiz</button>
     </form> */
 function generateStartString() {
   console.log("Generating start screen");
 
-  let startString = '<div class="welcome"><p>Welcome to the Latin Quiz!</p></div><form><button type="submit" class="js-startButton">Start Quiz</button></form>';
+  let startString = '<div class="welcome"><p>Welcome to the Latin Quiz!</p></div><form><button class="js-startButton">Start Quiz</button></form>';
 
   return startString;
 }
@@ -80,18 +76,19 @@ function generateStartString() {
       <p>Good Job!</p>
     </div>
     <form>
-      <button type="submit" class="js-restartButton">Restart Quiz</button>
+      <button class="js-restartButton">Restart Quiz</button>
       <label class = "score">---SCORE---</label>
     </form> */
 function generateEndString() {
   console.log("Generating End String");
-  let scoreString = generateScoreString(QUIZ);
+  let scoreString = generateScoreString();
   
-  let endString = '<div class="welcome"><p>Good Job!</p></div><form><button type="submit" class="js-restartButton">Restart Quiz</button><label class = "score">' + scoreString + '</label></form>';
+  let endString = '<div class="welcome"><p>Good Job!</p></div><form><button class="js-restartButton">Restart Quiz</button><label class = "score">' + scoreString + '</label></form>';
   return endString;
 }
-function generateScoreString(quiz) {
-  return 'Score: ' + quiz.score + '/' + quiz.totalQuestions + 'Correct';
+function generateScoreString() {
+  let scoreString = 'Score: ' + QUIZ.score + '/' + quizQuestions.length + 'Correct';
+  return '<label class = "js-score">' + scoreString + '</label>';
 }
 // convert questions array to HTML string
 /*  <div class="question">
@@ -101,31 +98,35 @@ function generateScoreString(quiz) {
       <fieldset>
         <legend>Answers:</legend>
         <div class="answers">
+          <div class="option-a">
           <input id="option-a" name="answer" type="radio" value="option-a">
-          <label for="option-a">A. 0</label><br>
+          <label for="option-a">A. 0</label></div><br>
 
+          <div class="option-b">
           <input id="option-b" name="answer" type="radio" value="option-b">
-          <label for="option-b">B. 1</label><br>
+          <label for="option-b">B. 1</label></div><br>
 
+          <div class="option-c">
           <input id="option-c" name="answer" type="radio" value="option-c">
-          <label for="option-c">C. 2</label><br>
+          <label for="option-c">C. 2</label></div><br>
 
+          <div class="option-d">
           <input id="option-d" name="answer" type="radio" value="option-d">
-          <label for="option-d">D. 3</label><br>
+          <label for="option-d">D. 3</label></div><br>
           </div>
-          <button type="submit" class="js-submit-question">Submit</button>
+          <button class="js-submit-question">Submit</button>
           <label class="score">---SCORE STRING---</label>
       </fieldset>
     </form> */
 function generateQuestionString(quiz, questionObject) {
   console.log("Generating question string");
-  let scoreString = generateScoreString(quiz);
-  return ('<div class="question"><p>${questionObject.question}</p></div><form><fieldset><legend>Answers:</legend><div class="answers"><input id="option-a" name="answer" type="radio" value="option-a"><label for="option-a">${questionObject.answer_a}</label><br><input id="option-b" name="answer" type="radio" value="option-b"><label for="option-b">${questionObject.answer_b}</label><br><input id="option-c" name="answer" type="radio" value="option-c"><label for="option-c">${questionObject.answer_c}</label><br><input id="option-d" name="answer" type="radio" value="option-d"><label for="option-d">${questionObject.answer_d}</label><br></div><button type="submit" class="js-submit-question">Submit</button><label class = "score">' + scoreString + '</label></fieldset></form>');
+  let scoreString = generateScoreString();
+  return '<div class="question"><p>' + questionObject.question +'</p></div><form><fieldset><legend>Answers:</legend><div class="answers"><div class="option-a"><input id="option-a" name="answer" type="radio" value="option-a"><label for="option-a">' + questionObject.answer_a + '</label></div><br><div class="option-b"><input id="option-b" name="answer" type="radio" value="option-b"><label for="option-b">' + questionObject.answer_b + '</label></div><br><div class="option-c"><input id="option-c" name="answer" type="radio" value="option-c"><label for="option-c">' + questionObject.answer_c + '</label></div><br><div class="option-d"><input id="option-d" name="answer" type="radio" value="option-d"><label for="option-d">' + questionObject.answer_d + '</label></div><br></div><button class="js-submit-question">Submit</button>' + scoreString + '</fieldset></form>';
 }
 
 function generateQuestionScreen(questionsIndex) {
   console.log("Generating specific Question " + questionsIndex);
-  let questionScreen = generateQuestionString(QUIZ, QUIZ.questions[questionsIndex]);
+  let questionScreen = generateQuestionString(QUIZ, quizQuestions[questionsIndex]);
 
   return questionScreen;
 }
@@ -140,42 +141,54 @@ function renderScreen(screenString) {
   $("main").html(screenString);
 }
 
+function render() {
+
+  if(QUIZ.quizstarted === false) {
+    renderScreen(generateStartString() );
+  }
+  else if(QUIZ.quizIndex < quizQuestions.length) {
+    renderScreen( generateQuestionScreen(QUIZ.quizIndex) );
+  }
+  else {
+    renderScreen( generateEndString() );
+  }
+}
+
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
 // These functions handle events (submit, click, etc)
 // handle start button
 function handleStartButton() {
-  $("main").on('submit', '.js-startButton', event => {
+  $('body').on('click', '.js-startButton', event => {
 
     console.log("Start Button clicked");
-    event.preventDefault();
 
     QUIZ.quizstarted = true;
+    QUIZ.score = 0;
     QUIZ.quizIndex = 0; // make sure to start on question 1
 
-    renderScreen( generateQuestionScreen(QUIZ, QUIZ.quizQuestions[QUIZ.quizIndex]) );
+    renderScreen( generateQuestionScreen(QUIZ.quizIndex) );
   } );
 }
 
 // handle start button
 function handleRestartButton() {
-  $("main").on('submit', '.js-restartButton', event => {
+  $('body').on('click', '.js-restartButton', event => {
 
     console.log("Restart Button clicked");
-    event.preventDefault();
 
     renderScreen( generateStartString() ); // go back to start screen
   } );
 }
 
 //handle next-question-button
-// <button type="submit" class="js-submit-question">Submit</button>
-function handleNextQuestion(quiz) {
-  $("main").on('submit', '.js-next-question', event => {
+// <button class="js-submit-question">Submit</button>
+function handleNextQuestion() {
+  $('body').on('click', '.js-next-question', event => {
     QUIZ.quizIndex++;
 
-    if(QUIZ.quizIndex < QUIZ.totalQuestions) { // if there are still questions
+    if(QUIZ.quizIndex < quizQuestions.length) { // if there are still questions
       renderScreen(generateQuestionScreen(QUIZ.quizIndex) );
     } else {
       renderScreen(generateEndString() );
@@ -185,36 +198,43 @@ function handleNextQuestion(quiz) {
 }
 
 // handle answers
-function handleAnswers(quiz, buttonValue) {
+function handleAnswers(buttonValue) {
 
   //replace the submit button with "Next" button
-  let newButtonString = '<button type="submit" class="js-next-question">Next</button>'
-  $("button .js-submit-question").replaceWith(newButtonString);
+  let newButtonString = '<button class="js-next-question">Next</button>';
+  $(".js-submit-question").replaceWith(newButtonString);
 
+  let correctAnswer = quizQuestions[QUIZ.quizIndex].correct;
 
-  if(buttonValue === QUIZ.quizQuestions[quiz.quizIndex].correct) { // correct answer
-    quiz.score++;
+  if(buttonValue === correctAnswer) { // correct answer
+    QUIZ.score++;
+    let newScore = generateScoreString();
+    $(".js-score").replaceWith(newScore);
   }
-
+  
   // add correct class to correct answer
-  let correctAnswerId = '#' + QUIZ.quizQuestions[quiz.quizIndex].correct;
-  $('main').find(correctAnswerId).toggleClass("js-correct");
+  let correctAnswerDiv = "div ." + correctAnswer;
+  $('main').find(correctAnswerDiv).toggleClass("js-correct");
 }
 
 // handle submit button
 function handleSubmitButton() {
-  $("main").on('submit', '.js-submit-question', event => {
+  $('body').on('click', '.js-submit-question', event => {
 
     console.log("Submit Button clicked");
-    event.preventDefault();
 
     // check answer
     let userAnswer = $('input[name="answer"]:checked').val();
-    handleAnswers(QUIZ, userAnswer); // returns True or False
+    handleAnswers(userAnswer); // returns True or False
   } );
 }
 
 // callback function to handle all screens / quiz
 $(function() {
-  renderScreen(generateStartString() );
+  render();
+  handleNextQuestion();
+  handleRestartButton();
+  handleStartButton();
+  handleSubmitButton();
+
 });
