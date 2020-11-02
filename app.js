@@ -87,7 +87,7 @@ function generateEndString() {
   return endString;
 }
 function generateScoreString() {
-  let scoreString = 'Score: ' + QUIZ.score + '/' + quizQuestions.length + 'Correct';
+  let scoreString = 'Score: ' + QUIZ.score + '/' + quizQuestions.length + ' Correct';
   return '<label class = "js-score">' + scoreString + '</label>';
 }
 // convert questions array to HTML string
@@ -121,7 +121,35 @@ function generateScoreString() {
 function generateQuestionString(quiz, questionObject) {
   console.log("Generating question string");
   let scoreString = generateScoreString();
-  return '<div class="question"><p>' + questionObject.question +'</p></div><form><fieldset><legend>Answers:</legend><div class="answers"><div class="option-a"><input id="option-a" name="answer" type="radio" value="option-a"><label for="option-a">' + questionObject.answer_a + '</label></div><br><div class="option-b"><input id="option-b" name="answer" type="radio" value="option-b"><label for="option-b">' + questionObject.answer_b + '</label></div><br><div class="option-c"><input id="option-c" name="answer" type="radio" value="option-c"><label for="option-c">' + questionObject.answer_c + '</label></div><br><div class="option-d"><input id="option-d" name="answer" type="radio" value="option-d"><label for="option-d">' + questionObject.answer_d + '</label></div><br></div><button class="js-submit-question">Submit</button>' + scoreString + '</fieldset></form>';
+  return `<div class="question">
+        <p> ${quiz.quizIndex+1}. ${questionObject.question}</p>
+        </div>
+        <form>
+          <fieldset>
+            <legend>Answers:</legend>
+            <div class="answers">
+              <div class="option-a">
+                <input id="option-a" name="answer" type="radio" value="option-a">
+                <label for="option-a"> ${questionObject.answer_a} </label>
+              </div>
+              <br>
+              <div class="option-b">
+                <input id="option-b" name="answer" type="radio" value="option-b">
+                <label for="option-b"> ${questionObject.answer_b} </label>
+              </div>
+              <br>
+              <div class="option-c">
+                <input id="option-c" name="answer" type="radio" value="option-c">
+                <label for="option-c"> ${questionObject.answer_c} </label>
+              </div>
+              <br>
+              <div class="option-d">
+                <input id="option-d" name="answer" type="radio" value="option-d">
+                <label for="option-d"> ${questionObject.answer_d} </label>
+              </div>
+              <br>
+            </div>
+            <button class="js-submit-question">Submit</button> ${scoreString} </fieldset></form>`;
 }
 
 function generateQuestionScreen(questionsIndex) {
@@ -162,8 +190,6 @@ function render() {
 function handleStartButton() {
   $('body').on('click', '.js-startButton', event => {
 
-    console.log("Start Button clicked");
-
     QUIZ.quizstarted = true;
     QUIZ.score = 0;
     QUIZ.quizIndex = 0; // make sure to start on question 1
@@ -176,8 +202,6 @@ function handleStartButton() {
 function handleRestartButton() {
   $('body').on('click', '.js-restartButton', event => {
 
-    console.log("Restart Button clicked");
-
     renderScreen( generateStartString() ); // go back to start screen
   } );
 }
@@ -188,12 +212,7 @@ function handleNextQuestion() {
   $('body').on('click', '.js-next-question', event => {
     QUIZ.quizIndex++;
 
-    if(QUIZ.quizIndex < quizQuestions.length) { // if there are still questions
-      renderScreen(generateQuestionScreen(QUIZ.quizIndex) );
-    } else {
-      renderScreen(generateEndString() );
-    }
-    
+    render(); 
   });
 }
 
@@ -220,8 +239,6 @@ function handleAnswers(buttonValue) {
 // handle submit button
 function handleSubmitButton() {
   $('body').on('click', '.js-submit-question', event => {
-
-    console.log("Submit Button clicked");
 
     // check answer
     let userAnswer = $('input[name="answer"]:checked').val();

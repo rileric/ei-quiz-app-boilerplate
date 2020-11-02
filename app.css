@@ -9,7 +9,7 @@
 html {
   box-sizing: border-box;
   width: 100%;
-  background: black;
+  background: rgb(114, 1, 1);
   color: white;
 }
 
@@ -17,32 +17,44 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
 main {
-  border: solid white;
+  /* border: solid white; */
   background-color: gainsboro;
   color: black;
 }
 
 div {
-  border: solid black;
+  /* border: solid black; */
 }
 
-div .option-a, div .option-b,
-div .option-c,div .option-d {
-  padding: 0;
-  margin: 0;
+button {
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
-
-
-
 
 form input[type="radio"] + label {
   display: inline;
-  font-size: 16px;
+  font-size: 2em;
+  padding: 0 20px;
+  margin: 0;
 }
 
 .welcome {
-  font-size: 48px;
+  font-size: 3em;
+}
+
+.js-score {
+  margin-left: 10px;
+}
+
+.js-score, legend, .question {
+  font-size: 1.5em;
 }
 
 .js-correct {
@@ -54,6 +66,12 @@ form input[type="radio"] + label {
 @media all and (min-width: 800px) {
 
   .welcome {
-    font-size: 52px;
+    font-size: 3em;
+  }
+
+  body {
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
   }
 }
