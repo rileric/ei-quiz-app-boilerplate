@@ -93,7 +93,7 @@ function generateQuestionString(quiz, questionObject) {
   return `<div class="question">
         <p> ${quiz.quizIndex+1}. ${questionObject.question}</p>
         </div>
-        <form>
+        <form class="js-form">
           <fieldset>
             <legend>Answers:</legend>
             <div class="answers">
@@ -118,7 +118,7 @@ function generateQuestionString(quiz, questionObject) {
               </div>
               <br>
             </div>
-            <button type="button" class="js-submit-question">Submit</button> ${scoreString} </fieldset></form>`;
+            <button type="submit" class="js-submit-question">Submit</button> ${scoreString} </fieldset></form>`;
 }
 
 function generateQuestionScreen(questionsIndex) {
@@ -204,15 +204,14 @@ function handleAnswers(buttonValue) {
 
 // handle submit button
 function handleSubmitButton() {
-  $('body').on('click', '.js-submit-question', event => {
+  $('main').on('submit', '.js-form', event => {
 
     event.preventDefault();
     // check answer
     let userAnswer = $('input[name="answer"]:checked').val();
 
-    if(userAnswer != undefined) { // require an answer
       handleAnswers(userAnswer); // returns True or False
-    }
+    
   } );
 }
 
@@ -227,4 +226,4 @@ function startQuiz() {
 }
 
 //initialize
-$(startQuiz());
+$(startQuiz);
